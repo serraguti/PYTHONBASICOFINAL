@@ -25,3 +25,29 @@ def getDepartamentos():
         dept.localidad = item["localidad"]
         data.append(dept)
     return data
+
+def insertDepartamento(departamento: Departamento):
+    endpoint = "api/departamentos"
+    #Convertimos el model a diccionario
+    jsonDept = {
+        "numero": departamento.id,
+        "nombre": departamento.nombre,
+        "localidad": departamento.localidad
+    }
+    response = requests.post(api_url + endpoint, json=jsonDept)
+    return response.status_code
+
+def updateDepartamento(departamento: Departamento):
+    endpoint = "api/departamentos"
+    jsonDept = {
+        "numero": departamento.id,
+        "nombre": departamento.nombre,
+        "localidad": departamento.localidad
+    }
+    response = requests.put(api_url + endpoint, json=jsonDept)
+    return response.status_code
+
+def deleteDepartamento(id: int):
+    endpoint = f"api/departamentos/{id}"
+    response = requests.delete(api_url + endpoint)
+    return response.status_code
